@@ -19,8 +19,11 @@ using std::string;
  * a single structure that contains both an identifier and data.
  */
 struct Data {
-    int id;
-    string information;
+    int paymentRequestNo;
+    double expensesSubmitted_TWDB_amt;
+    double advance[10];
+    double paymentAmt;
+
 };
 
 #endif /* STACKS_DATA_H */
