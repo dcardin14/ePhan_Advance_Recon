@@ -21,4 +21,6 @@ using std::endl;
 
 // Function prototypes here
 
+double findEarliestNonzeroAdvanceBalance(PmtReq &);
+
 #endif /* STACKS_FUNCTIONS_H */

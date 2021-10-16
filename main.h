@@ -10,6 +10,8 @@
 #ifndef STACKS_MAIN_H
 #define STACKS_MAIN_H
 
+#define MAXPAYMENTS 5
+
 #include <iostream>     /* cout, endl */
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
@@ -17,6 +19,7 @@
 // #include "stack.h"
 #include <string.h>
 #include <iomanip>
+#include <fstream>
 
 // used to make a test case number between 5 and 25
 // do not alter these
@@ -26,5 +29,11 @@
 using std::cout;
 using std::endl;
 using std::cin;
+using std::setw;
+using std::ifstream;
+using std::ofstream;
+using std::setprecision;
+using std::showpoint;
+using std::fixed;
 
 #endif /* STACKS_MAIN_H */
