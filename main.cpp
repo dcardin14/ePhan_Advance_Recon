@@ -15,7 +15,7 @@ int main() {
     
     inputFile.open("inputFile");  //This is the existing spreadsheet, basically
 
-    // Get the data from the inputFile 
+    // Get the data from the inputFile  and count the pmtReqs
     int counter = 0;
     while(!inputFile.eof())
     {
@@ -28,7 +28,7 @@ int main() {
     outputFile.open("outputFile.csv");
 
     // Output the data to the screen and to an outputFile
-    for(int j = 0; j < counter; j++)
+    for(int j = 0; j < counter-1; j++)
     {
       cout << setw(10) << pmtReq[j].expenses.amount << setw(10) << pmtReq[j].advance.amount << endl;
       outputFile << setw(10) << showpoint << fixed << setprecision(2) << pmtReq[j].expenses.amount << setw(10) << pmtReq[j].advance.amount;

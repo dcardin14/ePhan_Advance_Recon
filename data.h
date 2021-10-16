@@ -21,8 +21,15 @@ struct Expenses{
 struct PmtReq {
   int paymentRequestNo;
   string dateReceived;
-  Advance advance;
-  Expenses expenses;
+
+  /*
+   * Whatever fraction of the most recent advance has to be paid to qualify for the next advance
+   *
+   * */
+  float payPercentOnMostRecent;  
+
+  Advance advance;  //an instance of the struct
+  Expenses expenses; //an instance of the struct
 
 };
 
