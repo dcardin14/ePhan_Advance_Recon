@@ -36,5 +36,7 @@ using std::setprecision;
 using std::showpoint;
 using std::fixed;
 using std::put_money;
+using std::left;
+using std::right;
 
 #endif /* STACKS_MAIN_H */
