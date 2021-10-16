@@ -11,7 +11,9 @@
 using std::string;
 
 struct Advance{
-  double amount;
+  double amount; //How much was the advance?
+  double balance; //How much of this advance is still outstanding?
+  double appliedAgainst;  //How much is being applied against it  NOTE:  This will only be one value per struct, not a running total.
 };
 
 struct Expenses{
