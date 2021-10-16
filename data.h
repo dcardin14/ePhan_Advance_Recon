@@ -1,9 +1,7 @@
 /*
- * COSC 2436
- * Stacks Assignment
- * Do not modify this comment
+ * Daniel Cardin
+ * 10/15/2021
  * 
- * DO NOT MODIFY THIS FILE
  */
 
 #ifndef STACKS_DATA_H
@@ -12,17 +10,19 @@
 #include <string>
 using std::string;
 
-/*
- * Simple data structure to simulate the idea of an ADT which contains
- * an identifier and some kind of information. It's not important how complex
- * or simple this structure is, we only want to simulate the idea of
- * a single structure that contains both an identifier and data.
- */
-struct Data {
-    int paymentRequestNo;
-    double expensesSubmitted_TWDB_amt;
-    double advance[10];
-    double paymentAmt;
+struct Advance{
+  double amount;
+};
+
+struct Expenses{
+  double amount;
+};
+
+struct PmtReq {
+  int paymentRequestNo;
+  string dateReceived;
+  Advance advance;
+  Expenses expenses;
 
 };
 

@@ -19,7 +19,6 @@
 using std::cout;
 using std::endl;
 
-// void make_test_cases(int*, char**, int);
-// void display_test_cases(int*, char**, int);
+// Function prototypes here
 
 #endif /* STACKS_FUNCTIONS_H */
