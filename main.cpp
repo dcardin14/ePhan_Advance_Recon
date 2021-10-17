@@ -8,7 +8,7 @@
 
 #include "main.h"
 
-int main() 
+int main(int, char *argv[]) 
 {
 
   cout << endl << endl;
@@ -24,16 +24,16 @@ int main()
     //splashScreen();  //not working for some reason so I can't call it.
 
     PmtReq pmtReq[MAXPAYMENTS];
-    
-    inputFile.open("inputFile");  //This is the existing spreadsheet, basically
-    outputFile.open("outputFile.csv"); //This is the output
+
+    inputFile.open(argv[1]);  //This is the existing spreadsheet, basically, but passed in as the second-to-last cli parameter.
+    outputFile.open(argv[2]); //This is the output
 
     // Get the data from the inputFile  and count the pmtReqs
     int counter = 0; //Counter for the while loop
     double originalAdvance[9] = {0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00}; //To hold the original amounts (initialized though)
     double throwaway[9] = {0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00};// Just becuase there are 2 columns in input file when I only need 1 and I don't want to get confused 
-cout << endl;
-  cout << "==========================================================================================================================================" << endl;
+    cout << endl;
+    cout << "==========================================================================================================================================" << endl;
       cout << setw(2) << left << "+";
 
         /*------------------------------------------------------------------------------*/
@@ -75,7 +75,8 @@ cout << endl;
         outputFile << "------------------------------------------------------------------------------------------------------------------------------------------" << endl;
         /*------------------------------------------------------------------------------*/
         inputFile.close();
-        inputFile.open("inputFile");
+        inputFile.open(argv[1]);  //This is the existing spreadsheet, basically, but passed in as the second-to-last cli parameter.
+       // inputFile.open("inputFile");
 
     while(!inputFile.eof())
     {
