@@ -19,7 +19,9 @@ int main() {
     outputFile.open("outputFile.csv"); //This is the output
 
     // Get the data from the inputFile  and count the pmtReqs
-    int counter = 0;
+    int counter = 0; //Counter for the while loop
+    double originalAdvance[9] = {0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00}; //To hold the original amounts (initialized though)
+      cout << setw(2) << left << "+";
 
         /*------------------------------------------------------------------------------*/
         cout << setw(15) << std::right << "Advance_1" << setw(15) << "Advance_2"  //Columm headers before I start looping
@@ -28,6 +30,12 @@ int main() {
              << setw(15) << std::right << "Advance_7" << setw(15) << "Advance_8"  
              << setw(15) << std::right << "Advance_9" << endl;
         cout << "---------------------------------------------------------------------------------------------------------------------------------------" << endl;
+        cout << setw(15) << std::right << originalAdvance[0] << setw(15) << originalAdvance[1]  //Columm headers before I start looping
+             << setw(15) << std::right << originalAdvance[2] << setw(15) << originalAdvance[3]  
+             << setw(15) << std::right << originalAdvance[4] << setw(15) << originalAdvance[5]  
+             << setw(15) << std::right << originalAdvance[6] << setw(15) << originalAdvance[7]  
+             << setw(15) << std::right << originalAdvance[8] << endl;
+        cout << "---------------------------------------------------------------------------------------------------------------------------------------" << endl;
         /*------------------------------------------------------------------------------*/
         outputFile << setw(12) << std::right << "Advance_1" << setw(12) << "Advance_2"
                   << setw(12) << std::right <<  "Advance_3" << setw(12) << "Advance_4"
@@ -35,10 +43,12 @@ int main() {
                   << setw(12) << std::right <<  "Advance_7" << setw(12) << "Advance_8"
                   << setw(12) << std::right <<  "Advance_9" << setw(12) << endl;
         /*------------------------------------------------------------------------------*/
+        
 
     while(!inputFile.eof())
     {
       inputFile >> pmtReq[counter].expenses.amount >> pmtReq[counter].advance.amount;
+      originalAdvance[counter] = pmtReq[counter].advance.amount;
       pmtReq[counter].advance.balance = pmtReq[counter].advance.amount; //starting balance is the advance itself
 
       cout << setw(2) << left << counter + 1;
@@ -57,7 +67,7 @@ int main() {
         else if(pmtReq[counter].expenses.amount != 0)  //if the current Expense balance is NOT enough to satisfy this particular one of the prevs
         {
           pmtReq[i].advance.appliedAgainst = pmtReq[counter].expenses.amount;  
-          pmtReq[i].advance.balance = pmtReq[i].advance.balance - pmtReq[counter].expenses.amount;  // There will still be a balance
+          pmtReq[i].advance.balance = pmtReq[i].advance.balance - pmtReq[i].advance.appliedAgainst;  // There will still be a balance
           pmtReq[counter].expenses.amount = 0.0;  //The outer loop expenses are exhaused and applied to inner loop balance.
         }
         else
@@ -74,6 +84,23 @@ int main() {
       outputFile << endl;  //same in the output file
       counter++;  //increment the while loop counter
     } //end of while
+
+    cout << "---------------------------------------------------------------------------------------------------------------------------------------" << endl;
+    cout << left << setw(2) << "#";
+    /*
+     * Print remaining balances for each advance (Let's hope most of them are zero)
+     * because we're not supposed to make a new advance unless the most recent is
+     * 70% satisfied and all the prevs are zero
+     *
+     */
+    for(int j = 0; j < counter; j++)
+    {
+      cout << setw(15) << fixed << showpoint << setprecision(2) << std::right << pmtReq[j].advance.balance;
+    }
+
+
+
+
     outputFile.close();
     inputFile.close();
 
