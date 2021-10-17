@@ -10,17 +10,20 @@
 #include <string>
 using std::string;
 
-struct Advance{
+struct Advance
+{
   double amount; //How much was the advance?
   double balance; //How much of this advance is still outstanding?
   double appliedAgainst;  //How much is being applied against it  NOTE:  This will only be one value per struct, not a running total.
 };
 
-struct Expenses{
-  double amount;
+struct Expenses
+{
+  double twdb_amount;
 };
 
-struct PmtReq {
+struct PmtReq 
+{
   int paymentRequestNo;
   string dateReceived;
 

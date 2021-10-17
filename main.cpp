@@ -80,7 +80,7 @@ int main(int, char *argv[])
 
     while(!inputFile.eof())
     {
-      inputFile >> pmtReq[counter].expenses.amount >> pmtReq[counter].advance.amount;
+      inputFile >> pmtReq[counter].expenses.twdb_amount >> pmtReq[counter].advance.amount;
       originalAdvance[counter] = pmtReq[counter].advance.amount;
       pmtReq[counter].advance.balance = pmtReq[counter].advance.amount; //starting balance is the advance itself
 
@@ -91,17 +91,17 @@ int main(int, char *argv[])
       for(int i = 0; i <= counter; i++)
       {
 
-        if (pmtReq[counter].expenses.amount > pmtReq[i].advance.balance)
+        if (pmtReq[counter].expenses.twdb_amount > pmtReq[i].advance.balance)
         {
-          pmtReq[counter].expenses.amount = pmtReq[counter].expenses.amount - pmtReq[i].advance.balance;
+          pmtReq[counter].expenses.twdb_amount = pmtReq[counter].expenses.twdb_amount - pmtReq[i].advance.balance;
           pmtReq[i].advance.appliedAgainst = pmtReq[i].advance.balance; //say how much was applied 
           pmtReq[i].advance.balance = 0.0;  //zero out the advance balance
         }
-        else if(pmtReq[counter].expenses.amount != 0)  //if the current Expense balance is NOT enough to satisfy this particular one of the prevs
+        else if(pmtReq[counter].expenses.twdb_amount != 0)  //if the current Expense balance is NOT enough to satisfy this particular one of the prevs
         {
-          pmtReq[i].advance.appliedAgainst = pmtReq[counter].expenses.amount;  
+          pmtReq[i].advance.appliedAgainst = pmtReq[counter].expenses.twdb_amount;  
           pmtReq[i].advance.balance = pmtReq[i].advance.balance - pmtReq[i].advance.appliedAgainst;  // There will still be a balance
-          pmtReq[counter].expenses.amount = 0.0;  //The outer loop expenses are exhaused and applied to inner loop balance.
+          pmtReq[counter].expenses.twdb_amount = 0.0;  //The outer loop expenses are exhaused and applied to inner loop balance.
         }
         else
         {
