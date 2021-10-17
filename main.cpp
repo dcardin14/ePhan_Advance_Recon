@@ -27,6 +27,7 @@ int main() {
              << setw(15) << std::right << "Advance_5" << setw(15) << "Advance_6"  
              << setw(15) << std::right << "Advance_7" << setw(15) << "Advance_8"  
              << setw(15) << std::right << "Advance_9" << endl;
+        cout << "---------------------------------------------------------------------------------------------------------------------------------------" << endl;
         /*------------------------------------------------------------------------------*/
         outputFile << setw(12) << std::right << "Advance_1" << setw(12) << "Advance_2"
                   << setw(12) << std::right <<  "Advance_3" << setw(12) << "Advance_4"
@@ -44,7 +45,7 @@ int main() {
 
 
       //inner loop through all the balances from previous advances
-      for(int i = 0; i < counter; i++)
+      for(int i = 0; i <= counter; i++)
       {
 
         if (pmtReq[counter].expenses.amount > pmtReq[i].advance.balance)
