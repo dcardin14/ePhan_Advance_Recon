@@ -47,13 +47,21 @@ int main() {
              << setw(15) << std::right << originalAdvance[8] << endl;
         cout << "------------------------------------------------------------------------------------------------------------------------------------------" << endl;
         /*------------------------------------------------------------------------------*/
-        outputFile << setw(12) << std::right << "Advance_1" << setw(12) << "Advance_2"
-                  << setw(12) << std::right <<  "Advance_3" << setw(12) << "Advance_4"
-                  << setw(12) << std::right <<  "Advance_5" << setw(12) << "Advance_6"
-                  << setw(12) << std::right <<  "Advance_7" << setw(12) << "Advance_8"
-                  << setw(12) << std::right <<  "Advance_9" << setw(12) << endl;
+        outputFile << setw(15) << std::right << "Advance_1" << setw(15) << "Advance_2"
+                  << setw(15) << std::right <<  "Advance_3" << setw(15) << "Advance_4"
+                  << setw(15) << std::right <<  "Advance_5" << setw(15) << "Advance_6"
+                  << setw(15) << std::right <<  "Advance_7" << setw(15) << "Advance_8"
+                  << setw(15) << std::right <<  "Advance_9" << setw(15) << endl;
+        outputFile << "------------------------------------------------------------------------------------------------------------------------------------------" << endl;
         /*------------------------------------------------------------------------------*/
-        
+        outputFile.imbue(std::locale("en_US.UTF-8"));  //format as usd in the output file too
+        outputFile << setw(15) << std::right << setprecision(2) << showpoint << fixed << originalAdvance[0] << setw(15) << originalAdvance[1]  //Columm headers before I start looping
+             << setw(15) << std::right << originalAdvance[2] << setw(15) << originalAdvance[3]  
+             << setw(15) << std::right << originalAdvance[4] << setw(15) << originalAdvance[5]  
+             << setw(15) << std::right << originalAdvance[6] << setw(15) << originalAdvance[7]  
+             << setw(15) << std::right << originalAdvance[8] << endl;
+        outputFile << "------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+        /*------------------------------------------------------------------------------*/
         inputFile.close();
         inputFile.open("inputFile");
 
@@ -89,7 +97,7 @@ int main() {
         cout.imbue(std::locale("en_US.UTF-8"));  //allows me to format these numbers as USD
                 cout << setw(15) << fixed << showpoint << setprecision(2) << std::right << pmtReq[i].advance.appliedAgainst;  //show in terminal what you're applying
           
-          outputFile << setw(12) << fixed << showpoint << setprecision(2) << std::right << pmtReq[i].advance.appliedAgainst;  // output it to file too
+          outputFile << setw(15) << fixed << showpoint << setprecision(2) << std::right << pmtReq[i].advance.appliedAgainst;  // output it to file too
 
       } //end of the inner loop
       cout << endl;  //Go to the next line for the next payment request
@@ -98,7 +106,10 @@ int main() {
     } //end of while
 
     cout << "------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+    outputFile << "------------------------------------------------------------------------------------------------------------------------------------------" << endl;
     cout << left << setw(2) << "#";
+    //outputFile << left << setw(2) << "#";
+    //outputFile << left <<   "#";
     /*
      * Print remaining balances for each advance (Let's hope most of them are zero)
      * because we're not supposed to make a new advance unless the most recent is
@@ -108,20 +119,29 @@ int main() {
     for(int j = 0; j < counter; j++)
     {
       cout << setw(15) << fixed << showpoint << setprecision(2) << std::right << pmtReq[j].advance.balance;
+      outputFile << setw(15) << fixed << showpoint << setprecision(2) << std::right << pmtReq[j].advance.balance;
+
     }
 
     cout << endl;
     cout << "------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+    outputFile << endl;
+    outputFile << "------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+
     cout << left << setw(2) << "TD";
+    //outputFile << left << setw(2) << "TD";
+    //outputFile << left << "TD";
     for (int k = 0; k < 9; k++)
     {
       if(originalAdvance[k] > 0)
       {
         cout << setw(15) << fixed << showpoint << setprecision(1) << std::right << std::to_string(((originalAdvance[k] - pmtReq[k].advance.balance) / originalAdvance[k] * 100)) + "%";
+        outputFile << setw(15) << fixed << showpoint << setprecision(1) << std::right << std::to_string(((originalAdvance[k] - pmtReq[k].advance.balance) / originalAdvance[k] * 100)) + "%";
       }
       else
       {
         cout << setw(15) << std::right << " - ";
+        outputFile << setw(15) << std::right << " - ";
       } 
     }
     outputFile.close();
