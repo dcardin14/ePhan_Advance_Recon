@@ -112,10 +112,10 @@ int main() {
 
     cout << endl;
     cout << "------------------------------------------------------------------------------------------------------------------------------------------" << endl;
-    cout << left << setw(2) << "TD";
+    cout << left << setw(2) << "T";
     for (int k = 0; k < 9; k++)
     {
-      cout << setw(15) << fixed << showpoint << setprecision(1) << std::right << ((originalAdvance[k] - pmtReq[k].advance.balance) / originalAdvance[k] * 100) << "%";
+      cout << setw(15) << fixed << showpoint << setprecision(1) << std::right << std::to_string(((originalAdvance[k] - pmtReq[k].advance.balance) / originalAdvance[k] * 100)) + "%";
 
     }
     outputFile.close();
