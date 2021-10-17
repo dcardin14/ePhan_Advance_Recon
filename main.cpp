@@ -21,6 +21,7 @@ int main() {
     // Get the data from the inputFile  and count the pmtReqs
     int counter = 0; //Counter for the while loop
     double originalAdvance[9] = {0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00}; //To hold the original amounts (initialized though)
+    double throwaway[9] = {0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00};// Just becuase there are 2 columns in input file when I only need 1 and I don't want to get confused 
       cout << setw(2) << left << "+";
 
         /*------------------------------------------------------------------------------*/
@@ -29,13 +30,22 @@ int main() {
              << setw(15) << std::right << "Advance_5" << setw(15) << "Advance_6"  
              << setw(15) << std::right << "Advance_7" << setw(15) << "Advance_8"  
              << setw(15) << std::right << "Advance_9" << endl;
-        cout << "---------------------------------------------------------------------------------------------------------------------------------------" << endl;
-        cout << setw(15) << std::right << originalAdvance[0] << setw(15) << originalAdvance[1]  //Columm headers before I start looping
+        cout << "------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+        // A setup while loop to grab all those original advance amounts
+        int cc =0; //counter for setup while loop
+      while(!inputFile.eof())
+      {
+        inputFile >> throwaway[cc] >> originalAdvance[cc];
+        cc++; //increment the counter
+      }
+      cout << left << setw(2) << "+";
+        cout.imbue(std::locale("en_US.UTF-8"));  //allows me to format these numbers as USD
+        cout << setw(15) << std::right << setprecision(2) << showpoint << fixed << originalAdvance[0] << setw(15) << originalAdvance[1]  //Columm headers before I start looping
              << setw(15) << std::right << originalAdvance[2] << setw(15) << originalAdvance[3]  
              << setw(15) << std::right << originalAdvance[4] << setw(15) << originalAdvance[5]  
              << setw(15) << std::right << originalAdvance[6] << setw(15) << originalAdvance[7]  
              << setw(15) << std::right << originalAdvance[8] << endl;
-        cout << "---------------------------------------------------------------------------------------------------------------------------------------" << endl;
+        cout << "------------------------------------------------------------------------------------------------------------------------------------------" << endl;
         /*------------------------------------------------------------------------------*/
         outputFile << setw(12) << std::right << "Advance_1" << setw(12) << "Advance_2"
                   << setw(12) << std::right <<  "Advance_3" << setw(12) << "Advance_4"
@@ -44,6 +54,8 @@ int main() {
                   << setw(12) << std::right <<  "Advance_9" << setw(12) << endl;
         /*------------------------------------------------------------------------------*/
         
+        inputFile.close();
+        inputFile.open("inputFile");
 
     while(!inputFile.eof())
     {
@@ -85,7 +97,7 @@ int main() {
       counter++;  //increment the while loop counter
     } //end of while
 
-    cout << "---------------------------------------------------------------------------------------------------------------------------------------" << endl;
+    cout << "------------------------------------------------------------------------------------------------------------------------------------------" << endl;
     cout << left << setw(2) << "#";
     /*
      * Print remaining balances for each advance (Let's hope most of them are zero)
@@ -97,9 +109,6 @@ int main() {
     {
       cout << setw(15) << fixed << showpoint << setprecision(2) << std::right << pmtReq[j].advance.balance;
     }
-
-
-
 
     outputFile.close();
     inputFile.close();
