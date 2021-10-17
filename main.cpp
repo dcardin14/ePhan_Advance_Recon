@@ -13,6 +13,8 @@ int main() {
     ifstream inputFile; 
     ofstream outputFile;
 
+    //splashScreen();  //not working for some reason so I can't call it.
+
     PmtReq pmtReq[MAXPAYMENTS];
     
     inputFile.open("inputFile");  //This is the existing spreadsheet, basically
