@@ -50,7 +50,7 @@ int main() {
         if (pmtReq[counter].expenses.amount > pmtReq[i].advance.balance)
         {
           pmtReq[counter].expenses.amount = pmtReq[counter].expenses.amount - pmtReq[i].advance.balance;
-          pmtReq[i].advance.appliedAgainst = pmtReq[i].advance.balance; //say houw much how applied 
+          pmtReq[i].advance.appliedAgainst = pmtReq[i].advance.balance; //say how much was applied 
           pmtReq[i].advance.balance = 0.0;  //zero out the advance balance
         }
         else if(pmtReq[counter].expenses.amount != 0)  //if the current Expense balance is NOT enough to satisfy this particular one of the prevs
