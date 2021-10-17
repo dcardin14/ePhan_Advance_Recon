@@ -110,6 +110,14 @@ int main() {
       cout << setw(15) << fixed << showpoint << setprecision(2) << std::right << pmtReq[j].advance.balance;
     }
 
+    cout << endl;
+    cout << "------------------------------------------------------------------------------------------------------------------------------------------" << endl;
+    cout << left << setw(2) << "TD";
+    for (int k = 0; k < 9; k++)
+    {
+      cout << setw(15) << fixed << showpoint << setprecision(1) << std::right << ((originalAdvance[k] - pmtReq[k].advance.balance) / originalAdvance[k] * 100) << "%";
+
+    }
     outputFile.close();
     inputFile.close();
 
