@@ -80,8 +80,8 @@ int main(int, char *argv[])
 
     while(!inputFile.eof())
     {
-      inputFile >> pmtReq[counter].expenses.twdb_amount >> pmtReq[counter].advance.amount;
-      originalAdvance[counter] = pmtReq[counter].advance.amount;
+      inputFile >> pmtReq[counter].expenses.twdb_amount >> pmtReq[counter].advance.amount;  //read in the expense amount(twdb share) and advance amount
+      originalAdvance[counter] = pmtReq[counter].advance.amount;  //save the advance payout
       pmtReq[counter].advance.balance = pmtReq[counter].advance.amount; //starting balance is the advance itself
 
       cout << setw(2) << left << counter + 1;
@@ -91,16 +91,16 @@ int main(int, char *argv[])
       for(int i = 0; i <= counter; i++)
       {
 
-        if (pmtReq[counter].expenses.twdb_amount > pmtReq[i].advance.balance)
+        if (pmtReq[counter].expenses.twdb_amount > pmtReq[i].advance.balance) //if the current Expense balance IS enough to satisfy this particular one of the prevs.
         {
-          pmtReq[counter].expenses.twdb_amount = pmtReq[counter].expenses.twdb_amount - pmtReq[i].advance.balance;
+          pmtReq[counter].expenses.twdb_amount = pmtReq[counter].expenses.twdb_amount - pmtReq[i].advance.balance;  //Save the leftover expenses for application to the NEXT previous advance balance
           pmtReq[i].advance.appliedAgainst = pmtReq[i].advance.balance; //say how much was applied 
-          pmtReq[i].advance.balance = 0.0;  //zero out the advance balance
+          pmtReq[i].advance.balance = 0.0;  //zero out the advance balance for this one (we'll be applying the remainder to the next one on the NEXT iteration of this inner loop)
         }
-        else if(pmtReq[counter].expenses.twdb_amount != 0)  //if the current Expense balance is NOT enough to satisfy this particular one of the prevs
+        else if(pmtReq[counter].expenses.twdb_amount != 0)  //if the current Expense balance IS NOT enough to satisfy this particular one of the prevs
         {
-          pmtReq[i].advance.appliedAgainst = pmtReq[counter].expenses.twdb_amount;  
-          pmtReq[i].advance.balance = pmtReq[i].advance.balance - pmtReq[i].advance.appliedAgainst;  // There will still be a balance
+          pmtReq[i].advance.appliedAgainst = pmtReq[counter].expenses.twdb_amount;  // Apply the expenses we do have
+          pmtReq[i].advance.balance = pmtReq[i].advance.balance - pmtReq[i].advance.appliedAgainst;  // Reduce the advance balance by the amount we just applied.  There will still be nonzero balance
           pmtReq[counter].expenses.twdb_amount = 0.0;  //The outer loop expenses are exhaused and applied to inner loop balance.
         }
         else
